@@ -6,6 +6,9 @@ use Exception;
 use Kirby\Cms\App;
 use Kirby\Cms\Collection;
 use Kirby\Kql\Interceptors\Cms\Block;
+use Kirby\Kql\Interceptors\Cms\File;
+use Kirby\Kql\Interceptors\Cms\Page;
+use Kirby\Kql\Interceptors\Cms\User;
 use Kirby\Toolkit\Str;
 
 /**
@@ -21,7 +24,6 @@ class Kql
 {
     public static function fetch($model, $key, $selection)
     {
-
         // simple key/value
         if ($selection === true) {
             return static::render($model->$key());
@@ -114,18 +116,6 @@ class Kql
         return static::select($result, $select, $models, $options);
     }
 
-    public static function selectByType(
-        $data,
-        array $models = [],
-        $fallback = [],
-    ) {
-        if ($data instanceof Block) {
-            return $models[$data->type()] ?? $fallback;
-        }
-
-        return $fallback;
-    }
-
     public static function select(
         $data,
         array|string|null $select = null,
@@ -151,6 +141,30 @@ class Kql
         if (is_array($data) === true) {
             return static::selectFromArray($data, $select);
         }
+    }
+
+    public static function selectByType(
+        $data,
+        array $models = [],
+        $fallback = [],
+    ) {
+        if ($data instanceof Block) {
+            return $models[$data->type()] ?? $fallback;
+        }
+
+        if ($data instanceof Page) {
+            return $models[$data->intendedTemplate()] ?? $fallback;
+        }
+
+        if ($data instanceof File) {
+            return $models[$data->template()] ?? $fallback;
+        }
+
+        if ($data instanceof User) {
+            return $models[$data->role()->name()] ?? $fallback;
+        }
+
+        return $fallback;
     }
 
     /**
@@ -218,8 +232,7 @@ class Kql
         object $object,
         array|string $select,
         array $models = []
-    ): array {
-
+    ): array|null {
         // replace actual object with intercepting proxy class
         $object = Interceptor::replace($object);
         $result = [];
@@ -245,6 +258,6 @@ class Kql
             $result[$key] = static::fetch($object, $key, $selection);
         }
 
-        return $result;
+        return $result === [] ? null : $result;
     }
 }
