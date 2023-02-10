@@ -1,0 +1,39 @@
+title: Project
+image: 📁
+
+options:
+  preview: '{{ page.frontendUrl }}/{{ page.slug }}'
+
+columns:
+  - width: 2/3
+    fields: # TODO
+  - width: 1/3
+    fields:
+      tags:
+        label: Tags / Type
+        type: tags
+        options: query
+        query: page.siblings.pluck("categories", ",", true)
+      homeLayout:
+        label: Home Layout
+        type: blocks
+        fieldsets:
+          square:
+            name: Square
+            label: 1x1
+            preview: fields
+            wysiwyg: true
+            fields:
+              image:
+                extends: fields/image
+          rectangle:
+            name: Rectangle
+            label: 2x1
+            preview: fields
+            wysiwyg: true
+            fields:
+              image:
+                extends: fields/image
+                layout: cards
+                image:
+                  ratio: 504/240

@@ -1,10 +1,12 @@
 # build output
 dist/
+
 # generated types
 .astro/
 
 # dependencies
 node_modules/
+vendor
 
 # logs
 npm-debug.log*
@@ -15,7 +17,25 @@ pnpm-debug.log*
 
 # environment variables
 .env
-.env.production
 
 # macOS-specific files
 .DS_Store
+
+
+# Kirby
+.lock
+/kirby/public/media/*
+!/kirby/public/media/index.html
+/kirby/storage/accounts/*
+!/kirby/storage/accounts/.gitkeep
+/kirby/storage/cache/*
+!/kirby/storage/cache/.gitkeep
+/kirby/storage/content/*
+!/kirby/storage/content/.gitkeep
+/kirby/storage/logs/*
+!/kirby/storage/logs/.gitkeep
+/kirby/storage/sessions/*
+!/kirby/storage/sessions/.gitkeep
+/kirby/site/config/.license
+/kirby/site/plugins/*
+!/kirby/site/plugins/kql

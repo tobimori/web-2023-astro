@@ -1,0 +1,14 @@
+label:
+  de: Bild
+  en: Image
+type: files
+layout: cardlets
+uploads:
+  parent: site.find('assets')
+  template: image
+multiple: false
+image:
+  cover: true
+text: '{{ file.alt }}'
+info: '{{ file.tags.join(", ") }} | {{ file.filename }} '
+query: site.find('assets').images.filterBy('template', 'image')

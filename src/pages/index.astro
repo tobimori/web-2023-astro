@@ -1,4 +1,40 @@
 ---
+import { fetchKql } from '../lib/kql'
+import { ray } from 'node-ray'
+
+const { result } = await fetchKql({
+  query: 'page("projects/meine-erde")',
+  select: {
+    title: true,
+    homeLayout: {
+      query: 'page.homeLayout.toBlocks',
+      models: {
+        square: {
+          image: {
+            query: 'block.image.toFile',
+            select: {
+              alt: true,
+              url: true,
+              srcset: 'file.srcset([480, 720, 960])'
+            }
+          }
+        },
+        rectangle: {
+          image: {
+            query: 'block.image.toFile',
+            select: {
+              alt: true,
+              url: true,
+              srcset: 'file.srcset([504, 1008, 1512, 2016])'
+            }
+          }
+        }
+      }
+    }
+  }
+})
+
+ray(result)
 ---
 
 <html lang="en">
@@ -9,7 +45,5 @@
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
   </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
+  <body> </body>
 </html>

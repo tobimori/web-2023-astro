@@ -1,0 +1,6 @@
+title: Home
+icon: 🏠
+
+options:
+  changeStatus: false
+  preview: '{{ page.frontendUrl }}'

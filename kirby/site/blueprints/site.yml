@@ -1,0 +1,36 @@
+options:
+  preview: '{{ site.frontendUrl }}'
+
+tabs:
+  main:
+    icon: page
+    label:
+      de: Navigation
+      en: Navigation
+    columns:
+      - width: 2/3
+        sections:
+          pages:
+            label:
+              de: Seiten
+              en: Pages
+            type: pages
+            info: '/{{ page.slug }}'
+            create:
+              - default
+            templates:
+              - default
+              - home
+            image: icon
+      - width: 1
+        sections:
+          info:
+            label: ' '
+            theme: none
+            text:
+              de: |
+                **Ein Projekt von** [Tobias Möritz](https://moeritz.io)
+                Fragen oder Probleme? (email: tobias@moeritz.io)
+              en: |
+                **A project by** [Tobias Möritz](https://moeritz.io)
+                Questions or problems? (email: tobias@moeritz.io)
