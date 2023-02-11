@@ -1,0 +1,37 @@
+.grid-layout {
+  gap: 1.5rem;  
+  display: grid;
+  
+  &_row {
+    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 1fr; 
+  }
+  
+  &_item {
+    display: block;
+    height: 0;
+    position: relative;
+
+    &.is-rectangle {
+      padding-bottom: calc(50% - 0.75rem);
+      grid-column: span 2;
+    }
+
+    &.is-square {
+      padding-bottom: 100%;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      object-fit: cover;
+    }
+  }
+}

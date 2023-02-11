@@ -1,0 +1,22 @@
+---
+import '@styles/index.scss'
+import { Header } from '@components'
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{}</title>
+  </head>
+  <body>
+    <div class="content-borders">
+      <Header client:load />
+      <main class="content">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

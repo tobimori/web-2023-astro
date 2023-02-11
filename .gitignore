@@ -39,3 +39,4 @@ pnpm-debug.log*
 /kirby/site/config/.license
 /kirby/site/plugins/*
 !/kirby/site/plugins/kql
+!/kirby/site/plugins/extended-blocks

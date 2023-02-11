@@ -1,0 +1,30 @@
+.header {
+  box-shadow: inset 0px -0.0625rem 0px var(--neutral-dimmed);
+  padding: 2.5rem 4.5rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.04em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: var(--neutral-white);
+  line-height: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+
+  &_subtitle {
+    color: var(--neutral-gray);
+  }
+
+  &_title {
+    margin-bottom: 0.125rem;
+  }
+
+  &_column {
+    &.-span-2 {
+      grid-column: span 2;
+    }
+  }
+}

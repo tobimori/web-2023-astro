@@ -1,0 +1,64 @@
+:root {
+  // Neutral colors
+  --neutral-white: #fff;
+  --neutral-bright: #f7f5f2;
+  --neutral-dimmed: #dedbd8;
+  --neutral-gray: #898b8d;
+  --neutral-black: #000;
+
+  // Font declarations
+  --font: "TWK Everett", 'Inter', 'San Francisco', sans-serif;
+}
+
+@font-face {
+  font-family: 'TWK Everett';
+  src: url('/fonts/everett-400.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: var(--font);
+  font-weight: 400;
+  min-height: 100vh;
+  text-size-adjust: 100%;
+}
+
+.hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.content {
+  padding-top: 9.625rem;
+}
+
+.content-borders {
+  margin: 0 4.5rem;
+
+  &::after, &::before {
+    content: "";
+    display: block;
+    top: 0;
+    bottom: 0;
+    background: var(--neutral-white);
+    width: 2.5rem;
+    border: 0.0625rem solid var(--neutral-dimmed);
+    position: fixed;
+    z-index: 3;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  &::before {
+    left: 0;
+  }
+}

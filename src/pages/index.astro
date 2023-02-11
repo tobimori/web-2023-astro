@@ -1,34 +1,43 @@
 ---
-import { fetchKql } from '../lib/kql'
-import { ray } from 'node-ray'
+import { fetchKql } from '@lib/kql'
+import { GridLayout } from '@components'
+import BaseLayout from '@layouts/BaseLayout.astro'
 
 const { result } = await fetchKql({
-  query: 'page("projects/meine-erde")',
+  query: 'page("projects")',
   select: {
-    title: true,
-    homeLayout: {
-      query: 'page.homeLayout.toBlocks',
-      select: ['type'],
-      models: {
-        square: {
-          type: true,
-          image: {
-            query: 'block.image.toFile',
-            select: {
-              alt: true,
-              url: true,
-              srcset: 'file.srcset([480, 720, 960])'
-            }
-          }
-        },
-        rectangle: {
-          type: true,
-          image: {
-            query: 'block.image.toFile',
-            select: {
-              alt: true,
-              url: true,
-              srcset: 'file.srcset([504, 1008, 1512, 2016])'
+    elements: {
+      query: 'page.children.listed',
+      select: {
+        uuid: true,
+        slug: true,
+        title: true,
+        tags: 'page.tags.split(", ")',
+        thumbnails: {
+          query: 'page.homeLayout.toBlocks',
+          select: ['type'],
+          models: {
+            square: {
+              type: true,
+              image: {
+                query: 'block.image.toFile',
+                select: {
+                  alt: true,
+                  url: true,
+                  srcset: 'file.srcset([480, 720, 960])'
+                }
+              }
+            },
+            rectangle: {
+              type: true,
+              image: {
+                query: 'block.image.toFile',
+                select: {
+                  alt: true,
+                  url: true,
+                  srcset: 'file.srcset([504, 1008, 1512, 2016])'
+                }
+              }
             }
           }
         }
@@ -38,13 +47,6 @@ const { result } = await fetchKql({
 })
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body></body>
-</html>
+<BaseLayout>
+  <GridLayout {...result} client:load />
+</BaseLayout>

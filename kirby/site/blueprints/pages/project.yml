@@ -1,5 +1,6 @@
 title: Project
-image: 📁
+image:
+  icon: 📁
 
 options:
   preview: '{{ page.frontendUrl }}/{{ page.slug }}'
