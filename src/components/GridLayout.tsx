@@ -42,24 +42,29 @@ const mapThumbnailsToRows = (elements: Props['elements']) => {
   while (data.length > 0) {
     while (data[0].length > 0) {
       const nextElement = data[0][0]
-      const nextGroup = data[1]?.length > 0 ? data[1][0] : null
+      let nextIndex = 0
+      const nextGroup = () => (data[1]?.length > 0 ? data[1][nextIndex] : null)
 
-      const fitsNextGroup =
+      const fitsNextGroup = () =>
         data[1]?.length > 0
-          ? thumbnailsToValue([...row, nextGroup]) <=
+          ? thumbnailsToValue([...row, nextGroup()]) <=
               (rows.length % 2 === 1 ? 4 : 3) && row.length < 3
           : false
+
+      if (!fitsNextGroup() && data[1]?.length > 1) {
+        nextIndex++
+      }
 
       const fitsNextElement =
         thumbnailsToValue([...row, nextElement]) <=
           (rows.length % 2 === 1 ? 4 : 3) && row.length < 3
 
-      const fitsBoth =
-        thumbnailsToValue([...row, nextElement, nextGroup]) <=
+      const fitsBoth = () =>
+        thumbnailsToValue([...row, nextElement, nextGroup()]) <=
         (rows.length % 2 === 1 ? 4 : 3)
 
-      if (row.length > 0 && fitsNextGroup && !fitsBoth) {
-        const thumbnail = data[1].shift()
+      if (row.length > 0 && fitsNextGroup() && !fitsBoth()) {
+        const thumbnail = data[1].splice(nextIndex, 1)[0]
         if (thumbnail) row.push(thumbnail)
       } else if (fitsNextElement) {
         const thumbnail = data[0].shift()
